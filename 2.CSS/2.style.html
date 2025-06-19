@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS학습</title>
+    <style>
+        /* CSS 셀렉터란??? 원하는 HTML 요소를 선택하는 방법 - 3가지 (tag, class, id) */
+        h1 {
+            color:blue
+        }
+        h2 {
+            color:red
+        }
+        h3 {
+            color: #00ff00
+        }
+        #color3 {
+            color: magenta;
+            border: 10px dashed black;
+            width: 50%
+        }
+        .color1 {
+            color:blue;
+            background-color:yellow;
+            border: 5px solid red;
+        }
+        .color2 {
+            color:red;
+            background-color:aqua;
+            border: 3px dotted purple;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>헤딩1</h1>
+    <h2>헤딩2</h2>
+    <h3>헤딩3</h3>
+    <p class="color1">본문 내용으로 아무 내용이나 작성합니다1.</p>
+    <p class="color2">본문 내용으로 아무 내용이나 작성합니다2.</p>
+    <p id="color3">본문 내용으로 아무 내용이나 작성합니다3.</p>
+    <p class="color1">본문 내용으로 아무 내용이나 작성합니다4.</p>
+    <!-- 아이디가 겹쳐도 동작은 하지만, 좋은게 아님!! 절대 한 페이지에 아이디가 겹체가 만들지 말것 -->
+    <p class="color1" id="color3">본문 내용으로 아무 내용이나 작성합니다5.</p>
+</body>
+</html>
