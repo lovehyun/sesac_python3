@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 400px;
+            position: relative;
+        }
+        .box1, .box2 {
+            width: 100%;
+            height: 100%;
+            opacity: 0.7;
+            position: absolute;
+            background: #0057e3;
+        }
+        .overlay {
+            z-index: 1;
+            top: 200px;
+            background: #009938;
+        }
+        .box1:hover { /* 마우스가 box1 클래스 위에 올라간 상태 */
+            z-index: 5;
+            opacity: 1.0;
+            transform-style: all;
+            transition-duration: 5s; /* 5초 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box1">
+            상단 내용
+        </div>
+        <div class="box2 overlay">
+            하단 내용
+        </div>
+    </div>
+</body>
+</html>

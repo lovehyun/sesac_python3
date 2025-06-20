@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            animation-name: moveLeft;
+            animation-duration: 2s;
+            animation-timing-function: ease; /* linear, ease, ease-in/out/in-out */
+            animation-iteration-count: infinite; /* 1, 2, ... infinite */
+            animation-direction: alternate; /* 좌우 반복 */
+            position: relative; /* 이걸 넣어야 실제로 동작이 시작됨 */
+        }
+
+        @keyframes moveLeft {
+            0% {
+                left: 0;
+            }
+            100% {
+                left: 200px;
+            }
+        }
+        @keyframes moveLeftRight {
+            0% {
+                left: 0;
+            }
+            50% {
+                left: 400px;
+            }
+            100% {
+                left: 0px;
+            }
+        }
+        .text {
+            color: black;
+            animation-name: fadeOut;
+            animation-duration: 2.0s;
+            animation-timing-function: ease-in;
+            animation-iteration-count: infinite;
+        }
+        @keyframes fadeOut {
+            0% {
+                opacity: 1.0; /* 1.0 = solid 꽉 찬것 */
+            }
+            100% {
+                opacity: 0.0; 
+            }
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 25%;
+            background-color: blue;
+            animation-name: rotateAndScale;
+            animation-duration: 3s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: 2;
+        }
+        @keyframes rotateAndScale {
+            0% {
+                tranform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.5);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+        .image {
+            width: 200px;
+            height: 200px;
+            animation-name: shake;
+            animation-duration: 0.5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-10px) rotate(-5deg);
+            }
+            75% {
+                transform: translateX(100px) rotate(5deg);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <br>
+    <p class="text">Fade Out 에니메이션 (글자가 서서히 사라지기)</p>
+    <br>
+    <div class="circle"></div>
+    <br>
+    <img class="image" src="images/cat2.jpg">
+</body>
+</html>
