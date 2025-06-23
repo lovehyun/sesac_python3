@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 이거는 HTML 주석 -->
+    <style>
+        /* 여기는 CSS영역 */
+    </style>
+</head>
+<body>
+    <h1>헬로우 월드</h1>
+    <button style="color:red" onclick="sayHello()">헬로우</button>
+    <button style="color:blue" onclick="sayGoodbye()">작별</button>
+    <script>
+        // 여기는 JS영역
+        function sayHello() {
+            console.log("안녕 콘솔");
+        }
+        function sayGoodbye() {
+            for (let i = 0; i < 5; i++) {
+                // document.write("<H" + i + ">" + "굳바이 콘솔" + "</H" + i + ">");
+                document.write(`<H${i}>굳바이 콘솔<H${i}>`);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="changeColor3()">배경색 변경하기</button>
+    <script>
+        function changeColor() {
+            if (document.body.style.backgroundColor == 'red') {
+                document.body.style.backgroundColor = 'white';
+            } else {
+                document.body.style.backgroundColor = 'red';
+            }
+        }
+
+        let currentIndex = 0;
+        console.log("현재 인덱스: ", currentIndex);
+
+        function changeColor2() {
+            console.log('현재배경은: ', document.body.style.backgroundColor);
+
+            const colors = ["red", "green", "blue", "yellow", "orange", "purple"];
+            // 미션. 버튼을 누를때마다 순차적으로 바뀌게 구현하시오.
+            document.body.style.backgroundColor = colors[currentIndex];
+            currentIndex += 1;
+
+            if (currentIndex === colors.length) {
+                currentIndex = 0;
+            }
+        }
+
+        function changeColor3() {
+            const colors = ["red", "green", "blue", "yellow", "orange", "purple"];
+            document.body.style.backgroundColor = colors[currentIndex];
+            currentIndex = (currentIndex + 1) % colors.length;
+        }
+
+        // 숙제. 랜덤 색상으로.. 클릭할때마다.. 바꾸기
+        // 힌트: RGB => RRGGBB
+    </script>
+</body>
+</html>

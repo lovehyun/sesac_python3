@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>구구단</h1>
+    <input type="number" id="dan" placeholder="단 입력 (예: 2)">
+    <button onclick="print_gugudan_final()">출력하기</button>
+    <div id="result"></div>
+    <script>
+        function print_gugudan() {
+            let input_dan = document.getElementById('dan');
+            console.log(input_dan); // 여기서 출력되는건 값이 아니고, DOM 요소다
+            
+            let input_dan_value = input_dan.value; // DOM 요소가 가지고 있는 값
+            console.log(input_dan_value); 
+
+            for (let i = 1; i <= 9; i++ ) {
+                document.write(`${input_dan_value} x ${i} = ${input_dan_value*i}`);
+                document.write(`<BR>`);
+            }
+        }
+
+        function print_gugudan_final() {
+            let input_dan = document.getElementById('dan').value; // DOM 이 가지고 있는 값
+
+            for (let i = 1; i <= 9; i++ ) {
+                let result_div = document.getElementById('result'); // 결과를 출력하기 위한 DOM
+                result_div.innerHTML += `${input_dan} x ${i} = ${input_dan*i}`;
+                result_div.innerHTML += `<BR>`;
+            }
+        }
+    </script>
+</body>
+</html>
