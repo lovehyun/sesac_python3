@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>카운트다운 타이머</h1>
+    <input type="number" id="timeInput" placeholder="'초'를 입력하시오">
+    <button id="startButton" onclick="startTimer()">시작</button>
+    <div id="timerDisplay"><!--카운팅을 표시할곳--></div>
+
+    <script>
+        function startTimer() {
+            const timeInputValue = parseInt(document.getElementById('timeInput').value);
+            const timerDisplay = document.getElementById('timerDisplay');
+            const startButton = document.getElementById('startButton');
+            let timer = timeInputValue;
+
+            if (timer <= 0 || timer >= 100_000) {
+                alert("0보다 크고 10만보다 작은 수를 입력하세요");
+                return;
+            }
+
+            const newTimer = document.createElement('p');
+            timerDisplay.appendChild(newTimer);
+
+            let timerId = setInterval(() => {
+                if (timer <= 0) {
+                    newTimer.textContent = `카운팅 종료!`
+                    clearInterval(timerId); // 타이머를 멈추는 방법을 배웠음..
+                } else {
+                    newTimer.textContent = `${timer} 카운팅...`
+                    console.log('현재타이머:', timer);
+                    timer--;
+                }
+            }, 1000); // 1000ms 즉 1초
+        }
+    </script>
+</body>
+</html>

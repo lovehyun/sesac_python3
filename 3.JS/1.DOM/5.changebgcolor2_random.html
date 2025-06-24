@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+            height: 80vh; /* viewport, 높이의 단위 */
+            display: flex;
+            flex-direction: column; /* 위에서 아래로 정렬 */
+            justify-content: center;
+            align-items: center;
+        }
+        #colorCode {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+            background-color: rgba(255,255,255,0.7); /* 반투명 흰색 */
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="changeRandomColor3()">배경색 변경하기</button>
+    <div id="colorCode">색상 코드는 여기에 표시할 예정</div>
+    <script>
+        // 숙제. 랜덤 색상으로.. 클릭할때마다.. 바꾸기
+        // 힌트: RGB => RRGGBB
+        function changeRandomColor() {
+            // 꼭 하나하나 그 함수의 의미... 왜 쓴다.. 를 이해하고 살것
+            // random() 의 범위를 이해하기: 0 <= x < 1
+            // random()을 통해서, 내가 원하는 범위 만든는 방법은? x범위 (예, x256 = 0~255.9999까지)
+            // 반올림/내림/올림을 하기 위한 함수.. round(), floor(), ceil()
+            // 생성된 숫자를 문자열로 변환 toString(진수)
+            // 자리수 맞추기.. 2자리로 맞추기 padStart(2, '0') 2자리로 맞춰서 빈칸을 0으로 채운다.
+            // padStart가 없을때의 버그를 꼭 직접 확인해볼것..
+            const r = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');;
+            const g = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');;
+            const b = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');;
+
+            const hexColor = '#' + r + g + b;
+            console.log('이번색상은: ', hexColor);
+            document.body.style.backgroundColor = hexColor;
+        }
+
+        function changeRandomColor2() {
+            // 꼭 #RRGGBB가 아니고.. rgb(xxx, yyy, zzz) 방법도 있었음...
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+
+            const rgbColor = `rgb(${r}, ${g}, ${b})`;
+            console.log('이번색상은: ', rgbColor);
+            document.body.style.backgroundColor = rgbColor;
+        }
+
+        function changeRandomColor3() {
+            // const bignumber = Math.random() * 100_000_000_000; // ES2021부터 들어간 밑줄 표기법
+            // const rrggbb = Math.floor(Math.random() * 16777216).toString(16).padStart(6, '0');
+            const rrggbb = Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+            document.body.style.backgroundColor = '#' + rrggbb;
+            displayColor(rrggbb);
+        }
+
+        function displayColor(color) {
+            const colorDisplay = document.getElementById('colorCode');
+            colorDisplay.textContent = `현재배경색상은 #${color}`;
+        }
+    </script>
+</body>
+</html>

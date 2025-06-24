@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #myDiv {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .show {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="showhideDiv4()">숨겨진 영역 보여주기</button>
+    <div id="myDiv">이것이 바로 숨겨진 DIV 입니다.</div>
+    <script>
+        function showhideDiv() {
+            // const divElem = document.getElementById('myDiv');
+            const divElem = document.querySelector('#myDiv');
+            console.log('현재속성:', divElem.style.display);
+
+            if (divElem.style.display === 'none') {
+                divElem.style.display = 'block';
+            } else {
+                divElem.style.display = 'none';
+            }
+        }
+
+        function showhideDiv2() {
+            // const divElem = document.getElementById('myDiv');
+            const divElem = document.querySelector('#myDiv');
+            console.log('현재속성:', divElem.style.display);
+
+            // 동작하는 기본 로직을 바꿔서 버그 해결은 했지만, 
+            // CSS의 초기값에 따라서, 반대버그가 또 생길수 있음.
+            if (divElem.style.display !== 'block') {
+                divElem.style.display = 'block';
+            } else {
+                divElem.style.display = 'none';
+            }
+        }
+
+        function showhideDiv3() {
+            const divElem = document.querySelector('#myDiv');
+            const divElemStyle = window.getComputedStyle(divElem).display; // 브라우저에게 랜더링이 다 끝난 시점의 스타일을 알려달라고 요청한다.
+
+            console.log('최종랜더링된디자인: ', divElemStyle);
+            if (divElemStyle === 'none') {
+                divElem.style.display = 'block';
+            } else {
+                divElem.style.display = 'none';
+            }
+        }
+
+        function showhideDiv4() {
+            const divElem = document.getElementById('myDiv');
+            divElem.classList.toggle('show'); // 이게 있으면 빼고, 없으면 붙여라.
+        }
+    </script>
+</body>
+</html>
