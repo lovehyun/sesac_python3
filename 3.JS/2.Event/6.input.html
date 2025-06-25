@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="myInput" placeholder="클릭해보시오">
+    <p id="inputLength"></p>
+
+    <script>
+        document.getElementById('myInput').addEventListener('focus', function () {
+            console.log('여기 포커스됨');
+        });
+
+        document.getElementById('myInput').addEventListener('blur', function () {
+            console.log('여기 언포커스됨');
+            const inputLength = this.value.length;
+            document.getElementById('inputLength').textContent = inputLength + " 글자를 입력했습니다."
+        });
+    </script>
+</body>
+</html>

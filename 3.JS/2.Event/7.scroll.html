@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #content {
+            height: 2000px;
+            background: linear-gradient(to bottom, blue 0%, red 100%)
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+    <script>
+        window.addEventListener('scroll', function () {
+            console.log('페이지 스크롤됨');
+
+            // const scrollPosition = window.pageYOffset;
+            // const scrollPosition = document.documentElement.scrollTop;
+
+            // 실무적으로는 이거거나 저거거나 할때 || <-- or 를 통해서 가져옴
+            // 이때 왼쪽에 있는것이 먼저 할당 됨.
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            console.log('현재 스크롤바위치: ', scrollPosition);
+        });
+    </script>
+</body>
+</html>

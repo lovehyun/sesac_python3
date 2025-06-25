@@ -50,14 +50,49 @@
         function appendNumber(number) {
             document.getElementById('result').value += number
         }
-        function appendSymbol(number) {
+        function appendSymbol(symbol) {
             // 심볼 처리 어떻게 할거냐??
+            const prevInput = document.getElementById('result').value
+            const prevChar = prevInput.slice(-1)
+            // console.log(prevInput[prevInput.length-1]);
+            console.log(prevChar);
+            if (isNaN(prevChar) === false) {
+                document.getElementById('result').value += symbol
+            }
         }
         function clearInput() {
             document.getElementById('result').value = '';
         }
         function calculate() {
             // 계산 어떻게 할거냐??
+            const prevInput = document.getElementById('result').value
+
+            // 나눗셈이 0인지는 별도로 확인필요...
+            if (isDivisionByZero(prevInput) === true) {
+                document.getElementById('result').value = '0으로 나눌수 없습니다.';
+                return;
+            }
+
+            try {
+                const result = eval(prevInput)
+                document.getElementById('result').value = result;
+            } catch (error) {
+                console.log("발생한오류:", error);
+                document.getElementById('result').value = '처리할수 없습니다.';
+            }
+        }
+
+        function isDivisionByZero(expression) {
+            for (let i = 0; i < expression.length; i++) {
+                if (expression[i] === '/') {
+                    let current_pos = i + 1;
+                    if (expression[current_pos] === '0') {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     </script>
 </body>

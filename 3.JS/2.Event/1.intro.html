@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // DOM, CSS적용, 이미지로딩도 로딩, JS실행들도 끝났고..
+    window.onload = () => {
+        console.log('여기는 모든 로딩이 다 끝났을때.')
+    }
+    </script>
+
+    <h1>안녕하세요</h1>
+    <img src="https://www.python.org/static/img/psf-logo.png">
+    
+    <script>
+        // HTML DOM 로딩이 완성된 다음에 실행해라~
+        // DOM이 로딩이 끝났을 뿐이지, 그게 모든 CSS와 외부이미지로딩 등이 끝난것을 보장하지는 않음.
+        document.addEventListener('DOMContentLoaded', () => {
+            const h1 = document.getElementsByTagName('h1')[0];
+            h1.style.color = 'red';
+            console.log('여기는 DOM 로딩이 끝났을때.');
+        });
+    </script>
+</body>
+</html>

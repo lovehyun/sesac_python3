@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #dragItem {
+            width: 100px;
+            height: 100px;
+            background-color: #ffcc00;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #dropZone {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #cccccc;
+            background-color: #f0f0f0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="dragItem" draggable="true">드래그하시오</div>
+    <div id="dropZone">여기에 떨구시오</div>
+    <script>
+        const dragItem = document.getElementById('dragItem');
+        const dropZone = document.getElementById('dropZone');
+
+        dragItem.addEventListener('dragstart', function() {
+            console.log('드래그 시작됨');
+        });
+
+        dropZone.addEventListener('dragover', function(event) {
+            event.preventDefault();
+            // 원래 드래그앤드롭은... 파일, 링크 이런것들을...
+            console.log('여기에 뭔가 올라옴');
+        });
+
+        dropZone.addEventListener('drop', function(event) {
+            console.log('여기에 놨음');
+            dropZone.appendChild(dragItem); // 위에 DOM을 잡아다가 여기 아래에 넣어줌
+        });
+    </script>
+</body>
+</html>
