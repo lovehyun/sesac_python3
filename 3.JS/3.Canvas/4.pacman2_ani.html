@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        canvas {
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="400" height="300"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const context = canvas.getContext('2d'); // 그림을 그릴 공간에 접근하는 포인터...
+
+        /* 팩맨 모양 제어 */
+        const size = 60; /* 지름 크기 */
+
+        /* 움직임 제어 */
+        let x = 100;
+        let y = 100;
+        let directionX = 0;
+        let directionY = 0;
+        let moveSpeed = 2;
+
+        /* 입모양 제어 */
+        let startAngle = 0.2 * Math.PI; // 36도
+        let endAngle = 1.8 * Math.PI; // 324도
+        // let startAngle = 1.2 * Math.PI; // 36도  // 반대 입모양
+        // let endAngle = 0.8 * Math.PI; // 324도
+        let mouthDirection = 1;
+        const mouthSpeed = 0.03;
+
+        function drawPacman() {
+            context.fillStyle = 'yellow';
+            context.beginPath();
+            context.moveTo(x, y); // 시작점
+            context.arc(x, y, size / 2, startAngle, endAngle);
+            context.fill();
+            context.closePath();
+        }
+
+        function drawFood() {
+            // 나중에는 랜덤 위치에 음식을 생성한다...
+            // 화면 안에 있는 음식 갯수가 0이 되었을때...
+            // for 문으로 해서.. 3개를 그린다...
+
+            context.beginPath();
+            context.moveTo(100, 200); // 음식 위치
+            context.arc(100, 200, 10, 0, 2 * Math.PI);
+            context.fill();
+            context.closePath();
+
+            context.beginPath();
+            context.moveTo(300, 150); // 음식 위치
+            context.arc(300, 150, 10, 0, 2 * Math.PI);
+            context.fill();
+            context.closePath();
+        }
+
+        function updateAngles() {
+            if (startAngle >= 1.00) {
+                mouthDirection = -1;
+            } else if (startAngle <= 0.1) {
+                mouthDirection = +1;
+            }
+
+            startAngle += mouthSpeed * mouthDirection;
+            endAngle -= mouthSpeed * mouthDirection;
+        }
+
+        function movePacman() {
+            x += directionX;
+            y += directionY;
+
+            /* 화면의 왼쪽/오른쪽 벽에 부딛치면 */
+            if ((x < size / 2) || (x > canvas.width - size / 2)) {
+                x -= directionX;
+                return;
+            }
+
+            /* 화면의 위/아래에 부딛치면 */
+            if ((y < size / 2) || (y > canvas.height - size / 2)) {
+                y -= directionY;
+                return;
+            }
+        }
+
+        function checkPacmanFoodPosition() {
+            // 팩맨과 음식이 같은 위치에 있는지 확인한다.
+            // 그래서 그 영역 안에 들어왔으면 음식 하나를 지운다... 
+        }
+
+        function animate() {
+            context.clearRect(0, 0, canvas.width, canvas.height); // 전체 지우기
+            
+            drawPacman();
+            drawFood();
+            updateAngles();
+            movePacman();
+            checkPacmanFoodPosition();
+
+            requestAnimationFrame(animate);
+        }
+
+        // 미션. 이벤트를 등록해서 X,Y를 이동하시오.
+        // 1. 키 누를때마다 해당 방향으로 X,Y 좌표를 내가 정한 사이즈만큼 (10) 이동한다
+        // 2. 키를 누를때마다 해당 방향으로 연속적으로 이동한다..
+        document.addEventListener('keydown', handleKeyDown);
+
+        function handleKeyDown(event) {
+            // console.log('현재눌린키: ', event.key);
+            switch (event.key) {
+                case 'ArrowUp':
+                    directionY = -moveSpeed;
+                    directionX = 0;
+                    break;
+                case 'ArrowDown':
+                    directionY = +moveSpeed;
+                    directionX = 0;
+                    break;
+                case 'ArrowLeft':
+                    directionX = -moveSpeed;
+                    directionY = 0;
+                    break;
+                case 'ArrowRight':
+                    directionX = +moveSpeed;
+                    directionY = 0;
+                    break;
+            }
+        }
+
+        animate();
+    </script>
+</body>
+</html>
