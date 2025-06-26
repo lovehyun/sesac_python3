@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>투두 리스트</h1>
+    <input type="text" id="userInput" placeholder="할 일 추가하기">
+    <button id="addTodo">추가</button>
+    <ul id="todoList"><!--할일이추가될곳--></ul>
+
+    <script>
+        const todoList = document.getElementById('todoList');
+        const addTodo = document.getElementById('addTodo');
+        
+        addTodo.addEventListener('click', function() {
+            const userInput = document.getElementById('userInput').value;
+            if (userInput === '') return; // 이거 외에 또 어떤 케이스가 있을까??
+
+            // 새로운 LI 만들기
+            const new_li = document.createElement('li');
+            console.log(userInput);
+            new_li.textContent = userInput;
+            todoList.appendChild(new_li);            
+        });
+    </script>
+</body>
+</html>
