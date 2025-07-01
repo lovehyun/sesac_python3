@@ -7,5 +7,7 @@ class DisplayData(UserGenerator):
             print(f"Name: {name}\nBirthdate: {birthdate}\nGender: {gender}\nAddress: {address}\n")
 
 # 최종 실행
+num_data = input("원하는 데이터 갯수를 입력하시오: ")
+
 my_data = DisplayData()
-my_data.print_data(100)
+my_data.print_data(int(num_data))
