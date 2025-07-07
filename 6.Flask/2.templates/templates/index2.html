@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>flask 템플릿 엔진</h1>
+    <p>여기서부터는 평범한 HTML 코드가 아니고, Jinja2 Template 라고 부르는 새로운 언어문법...</p>
+    <h2>사용자 목록</h2>
+    <ul>
+        {% for name in names %}
+        <li>{{ name }}</li>
+        {% endfor %}
+
+        <!-- <li> 이름1 </li> -->
+        <!-- <li> 이름2 </li> -->
+        <!-- <li> 이름3 </li> -->
+        <!-- <li> 이름4 </li> -->
+    </ul>
+</body>
+</html>

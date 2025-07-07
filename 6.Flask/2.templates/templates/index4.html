@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>flask 템플릿 엔진</h1>
+    <h2>사용자 검색</h2>
+    <form>
+        <input type="text" name="name" placeholder="이름을 입력하시오">
+        <input type="submit" value="검색">
+    </form>
+    <h2>사용자 목록</h2>
+    <table border="1">
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>전화번호</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user['name'] }}</td>
+            <td>{{ user['age'] }}</td>
+            <td>{{ user['mobile'] }}</td>        
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
