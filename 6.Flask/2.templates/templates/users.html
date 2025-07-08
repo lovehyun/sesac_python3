@@ -7,8 +7,29 @@
 </head>
 <body>
     <!-- 이쁘게 사용자를 출력한다 -->
-     {% for u in users %}
-        {{ u }}<br>
-     {% endfor %}
+    <h1>Page {{ page }}</h1>
+
+    {% if page %}
+    <div>
+        {% if page > 1 %}
+            <a href="/pages/{{ page - 1 }}">Previous</a> |
+        {% else %}
+            Previous |
+        {% endif %}
+
+        <!-- jinja2 템플릿 문법에서 변수뒤에 "|"" 로 부가 기능 수행이 가능함. 그 중 하나가 해당 변수의 길이를 가져오는 기능인 "| length" -->
+        {% if users|length == 10 %}
+            <a href="/pages/{{ page + 1 }}">Next</a>
+        {% else %}
+            Next
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <ul>
+        {% for u in users %}
+            <li>{{ u.id }} - {{ u.name }} ({{ u.age }}세, {{ u.phone }})</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
