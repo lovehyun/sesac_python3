@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, send_from_directory, url_for, request
+from flask_cors import CORS
+# pip install flask-cors
 
 app = Flask(__name__)
+CORS(app)  # 나의 서버에 누구든지 와서 정보를 요청할수 있음.
 
 images = [
     {"filename":"cat1.jpg", "keywords": ["cat", "animal", "cute"]},
