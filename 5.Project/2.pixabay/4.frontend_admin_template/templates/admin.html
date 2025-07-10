@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>이미지 업로드</h1>
+    <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <input type="text" name="keywords" size=30 placeholder="예) cat, dog, pet, ... (콤마로 구분하시오)">
+        <input type="submit" value="업로드">
+    </form>
+
+    <h2>이미지 목록</h2>
+    <table border="1">
+        <tr>
+            <th>미리보기</th>
+            <th>파일명</th>
+            <th>키워드</th>
+            <th>삭제</th>
+        </tr>
+        {% for i in images %}
+        <tr>
+            <td><img src="{{ url_for('static', filename='img/' + i.filename) }}" width="200"></td>
+            <td>{{ i.filename }}</td>
+            <td>
+                <form action="{{ url_for('update_keywords', filename=i.filename )}}" method="POST">
+                    <input type="text" name="keywords" value="{{ i.keywords | join(', ') }}">
+                    <button type="submit">수정</button>
+                </form>
+            </td>
+            <td><a href="{{ url_for('delete_image', filename=i.filename) }}" onclick="return confirm('정말 삭제하시겠습니다?')">삭제</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
