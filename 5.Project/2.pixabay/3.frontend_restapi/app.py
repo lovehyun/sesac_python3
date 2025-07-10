@@ -17,6 +17,10 @@ images = [
 def index():
     return send_from_directory(app.static_folder, "index.html")
 
+@app.route('/search')
+def sss():
+    return send_from_directory(app.static_folder, "search.html")
+
 @app.route('/api/search')
 def search():
     query = request.args.get("q", "").lower()

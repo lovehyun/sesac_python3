@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <button id="load">로드</button>
+    <div id="result"><!--응답온거넣을곳--></div>
+
+    <script>
+        const loadBtn = document.getElementById('load')
+        const resultDiv = document.getElementById('result');
+
+        loadBtn.addEventListener('click', () => {
+            console.log('버튼클릭');
+            fetch('http://127.0.0.1:5000/data')
+                // Response 라는 개체 하나를 받은것.
+                .then(response => {
+                    // 헤더처리하는곳
+                    if (!response.ok) {
+                        throw new Error('통신중 오류가 발생했습니다.')
+                    }
+                    console.log("GPT가말한바디있나확인중:", response.body)
+                    return response.json()  // 바디를 파싱하는곳 (body 만 파싱했음)
+                })
+                .then(data => {
+                    // 바디만 받아온 이후..
+                    console.log(data)
+                    if (data.result === 'success') {
+                        resultDiv.classList.add('success');
+                        resultDiv.innerHTML = data.message
+                    } else {
+                        resultDiv.classList.add('error');
+                        resultDiv.innerHTML = data.message
+                    }
+                })
+                .catch(error => {
+                    resultDiv.classList.add('error');
+                    resultDiv.innerHTML = "통신중 오류가 발생했습니다."
+                })
+            console.log('fetch이후')
+        })
+    </script>
+</body>
+</html>

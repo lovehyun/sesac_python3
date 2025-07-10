@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>랜덤 강아지 사진</h1>
+    <button id="fetch">사진 가져오기</button>
+    <div id="image"></div>
+
+    <script>
+        document.getElementById('fetch').addEventListener('click', () => {
+            fetch('https://dog.ceo/api/breeds/image/random')
+                .then(response => response.json())
+                .then(data => {
+                    // console.log(data);
+                    const img_url = data.message;
+                    const img_div = document.getElementById('image');
+                    img_div.innerHTML = `<img src="${img_url}" alt="랜덤 강아지 사진">`
+
+                    // const img = document.createElement('img');
+                    // img.src = img_url;
+                    // img.alt = "랜덤 강아지 사진"
+                    // img_div.appendChild(img);
+                });
+        });
+    </script>
+    <!-- 
+    미션1-1. 버튼과 결과를 출력할 빈 공간을 만든다
+    미션1-2. 버튼을 클릭하면 아래 사이트에 이미지 요청을 한다.
+            https://dog.ceo/api/breeds/image/random
+    미션1-3. 받아온 결과로 위의 빈 공간에 이미지를 표시한다.
+
+    미션2-1. api사이트를 잘~~뒤져서.. 문서를 찾아서... 품종 목록을 가져오는 API를 찾아서...
+    미션2-2. 해당 품종을 기반으로 품종 목록을 표시하고 (동적으로 받아온 내용을 기반으로 표시),
+            힌트: 빈 SELECT를 만들어 두고, 받아온 breeds/list/all 을 받아와서 OPTIONS 로 채워준다.
+    미션2-3. 해당 품종에 해당하는 강아지 이미지를 표시한다.
+
+    미션3-1. 서브카테고리까지 동적으로 처리한다.
+    미션3-2. 불편한점을 찾는다 (UX적으로...) 다양한 메인과 서브를 바꿔가면서 이런걸~~~
+            뭐가 사용성이 좋은것인가/불편한것인가 고민해본다.
+    -->
+</body>
+</html>
