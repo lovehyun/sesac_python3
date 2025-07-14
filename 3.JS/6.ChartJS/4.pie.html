@@ -1,0 +1,39 @@
+<div>
+  <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+//   config 설정을 만들어 넣는다.
+const data = {
+  labels: [
+    '커피',
+    '우유',
+    '과일주스'
+  ],
+  datasets: [{
+    label: '스타벅스 강남 2호점',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};
+
+const config = {
+  type: 'pie',
+  data: data,
+  options: {
+    responsive: false   // 반응형 끄기
+  }
+};
+
+  new Chart(ctx, config);
+
+</script>
