@@ -1,7 +1,5 @@
-from app import create_app
+from app import app
 from models import db, User
-
-app = create_app()
 
 with app.app_context():  # 위 flask앱이 초기화가 되면
     db.drop_all()  # 모든 테이블 삭제
@@ -14,5 +12,3 @@ with app.app_context():  # 위 flask앱이 초기화가 되면
     
     for u in User.query.all():
         print(u.id, u.name, u.age)
-    
-    
