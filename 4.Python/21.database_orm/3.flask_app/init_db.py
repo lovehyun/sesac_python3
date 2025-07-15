@@ -10,5 +10,8 @@ with app.app_context():  # 위 flask앱이 초기화가 되면
     db.session.add(User(name="Charlie", age=20))
     db.session.commit()
     
+    users = User.query.all()
+    print(users)
+    
     for u in User.query.all():
         print(u.id, u.name, u.age)
