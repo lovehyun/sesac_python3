@@ -15,7 +15,7 @@
     <ul>
         {% for user in users %}
         <li>{{ user.id }}: {{ user.name }} ({{ user.age }} 세)
-            <a href="/modify/{{ user.id }}">수정</a>
+            <a href="/edit_user/{{ user.id }}">수정</a>
             <a href="/delete/{{ user.id }}">삭제</a>
         </li>
         {% endfor %}

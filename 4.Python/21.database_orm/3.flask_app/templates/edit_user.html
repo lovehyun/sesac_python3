@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>사용자 정보 수정</h1>
+    <!-- <form action="{{ url_for('update_user', id=user.id) }}", method="POST"> -->
+    <form action="/update_user/{{ user.id }}", method="POST">
+        <span>ID: {{ user.id }} </span>
+        <input type="text" name="name" value="{{ user.name }}" placeholder="Name">
+        <input type="number" name="age" value="{{ user.age }}" placeholder="Age">
+        <button type="submit">수정</button>
+    </form>
+</body>
+</html>

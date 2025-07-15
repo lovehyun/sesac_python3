@@ -40,6 +40,7 @@ def update_user_age(session, user_id: int, new_age: int) -> bool:
     # 사용자 아이디와 나이를 받아서, 나이 업데이트 하기
     # 그냥 객체에 값만 설정하면?? 자동으로 쓰임 (물론 sess.commit() 을 할때..)
     user = session.get(User, user_id)
+    # user = get_user_by_id(session, user_id)
     if not user:
         return False
     

@@ -23,6 +23,24 @@ def add_user():
     db.session.commit()
     return redirect('/')  # redirect(url_for('index')) 가 좀 더 나은 코드이기는 함.
 
+@app.route('/edit_user/<int:id>')
+def edit_user(id):
+    user = db.session.get(User, id)
+    # 사용자가 없으면 처리할것.. (지금은 넘어감)
+    return render_template('edit_user.html', user=user)
+
+@app.route('/update_user/<int:id>', methods=['POST'])
+def update_user(id):
+    user = db.session.get(User, id)
+    # 사용자가 없으면 처리할것.. (지금은 넘어감)
+
+    name = request.form.get('name')
+    age = request.form.get('age')
+    user.name = name
+    user.age = int(age)
+    db.session.commit()
+    return redirect('/')
+
 @app.route('/delete/<int:id>')
 def delete_user(id):
     user = db.session.get(User, id)
@@ -31,7 +49,7 @@ def delete_user(id):
         db.session.commit()
     else:
         print('사용자 없음: ', id)
-        
+
     return redirect('/')
 
 if __name__ == '__main__':
