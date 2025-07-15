@@ -9,6 +9,14 @@ def get_connection():
     return conn
 
 # ---- 유저(user) -----
+def get_user_count():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM users")
+    user_count = cursor.fetchone()[0]
+    conn.close()
+    return user_count
+    
 def get_users():
     conn = get_connection()
     cursor = conn.cursor()
