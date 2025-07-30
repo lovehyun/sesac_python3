@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}상품 페이지{% endblock %}
+{% block content %}
+<H1>상품</H1>
+{% if error %}
+<p style="color:red">{{ error }}</p>
+{% endif %}
+{% if message %}
+<p style="color:green">{{ message }}</p>
+{% endif %}
+<UL>
+    {% for item in cart %}
+        <li>
+            {{ item.name }} - {{ item.price }} - {{ item.qty }} - 삭제
+        </li>
+    {% endfor %}
+</UL>
+{% endblock %}
