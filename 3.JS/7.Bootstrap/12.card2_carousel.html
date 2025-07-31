@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- bootstrap css 추가 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <style>
+        /* 화살표 색상을 검은색으로 변경 */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black; /* 검은색 화살표 */
+            border-radius: 50%; /* 원형으로 보기 좋게 */
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+        <div class="container my-4">
+        <h2 class="text-center">카드 캐러셀</h2>
+
+        <!-- 캐러셀 -->
+        <div id="simpleCardCarousel" class="carousel slide" data-bs-ride="carousel">
+        
+        <!-- 슬라이드 3초로 변경 -->
+        <!-- <div id="simpleCardCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"> -->
+        <!-- 슬라이드 비활성화 -->
+        <!-- <div id="simpleCardCarousel" class="carousel slide"> -->
+
+            <div class="carousel-inner">
+                <!-- 첫 번째 슬라이드 -->
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-center">
+                        <div class="card mx-2" style="width: 18rem;">
+                            <!-- <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Card Image"> -->
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Card Image">
+                            <div class="card-body">
+                                <h5 class="card-title">카드 1</h5>
+                                <p class="card-text">이것은 첫 번째 카드입니다.</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                        <div class="card mx-2" style="width: 18rem;">
+                            <!-- <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Card Image"> -->
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Card Image">
+                            <div class="card-body">
+                                <h5 class="card-title">카드 2</h5>
+                                <p class="card-text">이것은 두 번째 카드입니다.</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                        <div class="card mx-2" style="width: 18rem;">
+                            <!-- <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Card Image"> -->
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Card Image">
+                            <div class="card-body">
+                                <h5 class="card-title">카드 3</h5>
+                                <p class="card-text">이것은 세 번째 카드입니다.</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 두 번째 슬라이드 -->
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="card mx-2" style="width: 18rem;">
+                            <!-- <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Card Image"> -->
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Card Image">
+                            <div class="card-body">
+                                <h5 class="card-title">카드 4</h5>
+                                <p class="card-text">이것은 네 번째 카드입니다.</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                        <div class="card mx-2" style="width: 18rem;">
+                            <!-- <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Card Image"> -->
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Card Image">
+                            <div class="card-body">
+                                <h5 class="card-title">카드 5</h5>
+                                <p class="card-text">이것은 다섯 번째 카드입니다.</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                        <div class="card mx-2" style="width: 18rem;">
+                            <!-- <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Card Image"> -->
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Card Image">
+                            <div class="card-body">
+                                <h5 class="card-title">카드 6</h5>
+                                <p class="card-text">이것은 여섯 번째 카드입니다.</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 좌우 화살표 -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#simpleCardCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">이전</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#simpleCardCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">다음</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- bootstrap js 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
