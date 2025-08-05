@@ -1,3 +1,6 @@
+# pip install openai==0.3 보다 작은 버전.. 
+# pip install openai==0.28
+
 import openai
 from dotenv import load_dotenv
 import os

@@ -8,7 +8,12 @@ client = openai.OpenAI()
 history = []
 
 def ask_chatgpt(user_input):
+    # 페르소나 - 가상의 인물을 만들어서, 그 역할을 시킴
+    # gpt_systemprompot = {'role':'system', 'content': 'You are a helpful assistant'}
+    gpt_systemprompt = {'role':'system', 'content': '당신은 동네 분식집의 주방장입니다.'}
     gpt_question = {'role':'user', 'content': user_input}
+    if (len(history) == 0):
+        history.append(gpt_systemprompt)
     history.append(gpt_question)
     print('실제로 우리가 GPT에게 던지는 메시지\n----- 질문 시작 -----\n')
     print(history)
@@ -19,6 +24,7 @@ def ask_chatgpt(user_input):
         messages = history,
         temperature=1.0   # 의료/법률 0.0, 작명/소설 1.0, 1.1, 1.2
     )
+    
     
     gpt_response = {'role':'assistant', 'content': response.choices[0].message.content}
     history.append(gpt_response)
