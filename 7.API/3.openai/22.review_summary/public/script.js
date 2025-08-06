@@ -54,7 +54,9 @@ function displayReview(reviews) {
 }
 
 async function fetchAISummary() {
-    const response = await fetch('/api/ai-summary');
+    const lang = document.getElementById('languageSelect').value;
+
+    const response = await fetch(`/api/ai-summary?lang=${lang}`);
     // 오류처리 생략
     const data = await response.json();
     // console.log(data);

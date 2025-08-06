@@ -2,14 +2,50 @@ from dotenv import load_dotenv
 import os
 
 from flask import Flask, request, jsonify
-from openai import OpenAI
+
+from langchain_core.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
 
 load_dotenv()
 
 # app = Flask(__name__, static_folder='static', static_url_path='static')
 app = Flask(__name__, static_folder='public', static_url_path='')
-# openai = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-openai = OpenAI()
+llm = ChatOpenAI(
+    model='gpt-3.5-turbo',
+    temperature=0.7
+)
+
+# 프롬프트 템플릿 만들기
+summary_prompt = PromptTemplate.from_template(
+    """다음 목록을 기반으로 간결한 요약을 작성하시오.
+
+리뷰목록:
+{reviews_text}
+"""
+)
+
+translate_prompt = PromptTemplate.from_template(
+    """다음 한국어 문장을 기반으로 {target_lang_name} 으로 번역하시오.
+    
+{summary_ko}
+"""
+)
+
+# 체인 구성
+summary_chain = summary_prompt | llm
+translate_chain = translate_prompt | llm
+
+# 최종 원하는 체인
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+
+summary_then_translate_chain = (
+    {"summary_ko": summary_prompt | llm | RunnableLambda(lambda m: m.content),
+     "target_lang_name": RunnablePassthrough() }
+    #  "target_lang_name": RunnableLambda(lambda x: x["target_lang_name"]) }
+    | translate_prompt
+    | llm
+    | RunnableLambda(lambda m: m.content)
+)
 
 reviews = [] # 사용자 후기를 저장할 DB
 
@@ -59,30 +95,20 @@ def get_ai_summary():
     print("리뷰내용 통합: ", reviews_text)
     
     # 아래도 try catch 로 꼭 감싸야 함.. key가 없거나, 돈이 다 떨어졌거나, 서버가 죽었거나, 여러가지 이유로 요청에 실패할수 있음.
-    response_summary = openai.chat.completions.create(
-        model='gpt-3.5-turbo',
-        messages=[{
-            'role': 'user',
-            'content': f'다음 리뷰 목록을 기반으로 간결하게 요약해 주세요.\n\n{reviews_text}'
-        }] # 어떻게 잘 이 문장을 만들것이냐? 프롬프트 엔지니어링.
-    )
+    # 두번 나누어서 호출하기
+    # response_summary = summary_chain.invoke({'reviews_text': reviews_text}).content
+    # print("요약내용: ", response_summary)
     
-    summary = response_summary.choices[0].message.content.strip()
-    print("요약내용: ", summary)
+    # response_translated = translate_chain.invoke({'summary_ko': response_summary, 'target_lang_name': lang_name}).content
+    # print("요약번역내용: ", response_translated)
     
-    response_translated = openai.chat.completions.create(
-        model='gpt-3.5-turbo',
-        messages=[{
-            'role': 'system', 'content': 'You are a professional language translator.',
-            'role': 'user',
-            'content': f'다음 문장을 {lang_name}로 번역하여 해당 언어로만 출력해 주세요.\n\n{summary}'
-        }], # 어떻게 잘 이 문장을 만들것이냐? 프롬프트 엔지니어링.
-        temperature=0.2
-    )
+    # 한번에 두가지를 체이닝해서 호출하기
+    response_translated = summary_then_translate_chain.invoke({
+        "reviews_text": reviews_text,
+        "target_lang_name": lang_name
+    })
     
-    final_text = response_translated.choices[0].message.content.strip()
-    print("요약번역내용: ", final_text)
-    return jsonify({'summary': final_text, 'averageRating': average_rating})
+    return jsonify({'summary': response_translated, 'averageRating': average_rating})
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
