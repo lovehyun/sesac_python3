@@ -44,14 +44,24 @@ async function loadTodos() {
     todoList.innerHTML = ''; // 현재 있는거 초기화
     data.forEach((task) => {
         const li = document.createElement('li');
+        // 시큐어 코딩을 고려하면 이렇게 사용자의 입력값을 innerHTML로 뿌려주는 것은 매우 좋지 않은것임.
+        // 좋은건?? 내가 DOM을 하나하나 그려서, 컨텐츠만 텍스트로 추가하게 하는게 좋은것임. (물론 짜기 매우 귀찮음)
+        // 아니면 최소한의 방어책으로, 사용자 입력값은 검증한다.
         li.innerHTML = `
             <span class="${task.done ? 'done': ''}" onclick="toggleTodo(${task.id})">
-                ${task.task}
+                ${escapeHTML(task.task)}
             </span>
             <a onclick="deleteTodo(${task.id})"><i class="bi bi-trash"></i></a>
         `;
         todoList.appendChild(li);
     })
+}
+
+// 최소한의 방어책 - "입력값 검증을 한다"
+function escapeHTML(str) {
+    return String(str)
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
 }
 
 async function toggleTodo(id) {

@@ -76,7 +76,7 @@ function addMessage(message, sender) {
     container.scrollTop = container.scrollHeight;
 }
 
-const ECHO_MODE = true;
+const ECHO_MODE = false;
 
 async function sendMessageToServer(userInput) {
     if (ECHO_MODE) {

@@ -1,0 +1,13 @@
+from flask import Blueprint, request, jsonify
+from services import chatbot_service as chatbot
+
+chatbot_bp = Blueprint('chatbot', __name__)
+
+@chatbot_bp.route('/api/chat', methods=['POST'])
+def chatbot_response():
+    data = request.get_json()
+    question = data.get('userInput')
+    
+    result = chatbot.ask_gpt(question)
+    
+    return jsonify({'chatbot': f'[BOT] {result}'})
