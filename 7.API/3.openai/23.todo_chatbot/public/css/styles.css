@@ -1,0 +1,15 @@
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: purple;
+    margin-left: 10px;
+}
+
+.done {
+    text-decoration: line-through;
+    color: grey;
+}
+
+.bi-trash:hover {
+    color: red;
+}
