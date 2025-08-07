@@ -8,6 +8,6 @@ def chatbot_response():
     data = request.get_json()
     question = data.get('userInput')
     
-    result = chatbot.ask_gpt(question)
+    result = chatbot.handle_chat(question)
     
     return jsonify({'chatbot': f'[BOT] {result}'})

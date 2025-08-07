@@ -7,6 +7,12 @@ _next_id = 1
 def get_all():
     return _todos
 
+def get_all_to_string():
+    # return [{"ID": t["id"], "할일": t["task"], "완료": t["done"]} for t in _todos]
+    return "\n".join([
+        f"{t['id']}. {t['task']} [{'완료' if t['done'] else '미완료'}]" 
+        for t in _todos])
+
 def add(task):
     global _next_id
     
