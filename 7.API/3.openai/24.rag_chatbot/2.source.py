@@ -22,19 +22,22 @@ load_dotenv()
 # 1. 문서 로딩
 document1 = TextLoader('./nvme.txt', encoding='utf-8').load()
 document2 = TextLoader('./ssd.txt', encoding='utf-8').load()
-documents = document1 + document2
 # print(documents)
 
-# 필요시 추가적인 메타데이터를 추가해서... "출처" 등을 명시할때 사용
-for i, doc in enumerate(document1, start=1):
-    doc.metadata.update({"chunk_id":i, "created_date": "2025-08-08"})
-for i, doc in enumerate(document2, start=1):
-    doc.metadata.update({"chunk_id":i, "created_date": "2025-08-08"})
-    
 # 2. 문서를 청크(chunk) 단위로 짜르기
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200) # 1000/200, 2000/500
-texts = text_splitter.split_documents(documents)
+texts1 = text_splitter.split_documents(document1)
+texts2 = text_splitter.split_documents(document2)
 # print(texts)
+
+# 필요시 추가적인 메타데이터를 추가해서... "출처" 등을 명시할때 사용
+for i, doc in enumerate(texts1, start=1):
+    doc.metadata.update({"chunk_id":i, "created_date": "2025-08-08"})
+for i, doc in enumerate(texts2, start=1):
+    doc.metadata.update({"chunk_id":i, "created_date": "2025-08-08"})
+
+# 모든 청크 합치기
+texts = texts1 + texts2
 
 # 3. 임베딩 하기
 embeddings = OpenAIEmbeddings()
