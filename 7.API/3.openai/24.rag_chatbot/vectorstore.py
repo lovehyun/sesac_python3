@@ -31,6 +31,9 @@ def create_vector_db(file_path):
     # 1. 파일을 가져온다
     documents = PyPDFLoader(file_path).load()
     
+    for doc in documents:
+        doc.metadata['source'] = os.path.basename(file_path) # 경로 제외하고 파일명만 남기기
+        
     # 2. 문서 분할한다
     texts = CharacterTextSplitter(chunk_size=100, chunk_overlap=20).split_documents(documents)
     print(texts)
@@ -77,3 +80,11 @@ def answer_question(question):
     result = chain.invoke({"context": context, "question": question})
     
     return result
+
+def delete_file_from_vstore(filename):
+    # NoSQL 기반의 DB에서 자료 삭제하는것과 동일함 (예, mongodb)
+    store._collection.delete(where={"source": filename})
+    
+    # 백터DB가 persist 옵션이 켜져 있으면? 저장..
+    if hasattr(store, "persist"):
+        store.persist()

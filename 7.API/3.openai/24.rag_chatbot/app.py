@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import os
-from vectorstore import initialize_vector_db, create_vector_db, answer_question
+from vectorstore import initialize_vector_db, create_vector_db, answer_question, delete_file_from_vstore
 
 app = Flask(__name__, static_url_path="")
 
@@ -35,6 +35,24 @@ def chatbot():
     answer = answer_question(question)
     
     return jsonify({"message": answer})
+
+@app.route('/files')
+def get_filelist():
+    files = [f for f in os.listdir(DATA_DIR)
+             if os.path.isfile(os.path.join(DATA_DIR, f))]
+    return jsonify({"files": files})
+
+@app.route('/files/<filename>', methods=['DELETE'])
+def delete_file(filename):
+    # 벡터DB에서 삭제
+    delete_file_from_vstore(filename)
+    
+    # 물리적으로 파일 삭제
+    path = os.path.join(DATA_DIR, filename)
+    if os.path.exists(path):
+        os.remove(path)
+        
+    return jsonify({"message": f"'{filename}' 을 삭제하였습니다."})
 
 if __name__== "__main__":
     initialize_vector_db()
