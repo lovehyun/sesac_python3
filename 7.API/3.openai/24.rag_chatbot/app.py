@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import os
-from vectorstore import initialize_vector_db, create_vector_db, answer_question, delete_file_from_vstore
+from vectorstore import initialize_vector_db, create_vector_db, delete_file_from_vstore
+from chatbot import initialize_llm, answer_question
 
 app = Flask(__name__, static_url_path="")
 
@@ -56,4 +57,5 @@ def delete_file(filename):
 
 if __name__== "__main__":
     initialize_vector_db()
+    initialize_llm()
     app.run(debug=True)
