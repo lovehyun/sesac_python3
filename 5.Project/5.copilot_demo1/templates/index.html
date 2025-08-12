@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투두앱</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>투두 리스트</h1>
+        <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+        <button id="addTodoButton">추가</button>
+        <ul id="todoList">
+        </ul>
+    </div>
+    <script>
+        document.getElementById('addTodoButton').addEventListener('click', addTodo);
+
+        async function addTodo() {
+            const input = document.getElementById("todoInput").value;
+            if (input === '') {
+                alert("할 일을 입력하세요.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/todo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ todo: input }),
+                });
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    alert("Todo 항목을 추가하는 데 문제가 발생했습니다.");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const todos = {{ todos|tojson }};
+            const todoList = document.getElementById("todoList");
+
+            todos.forEach(todo => {
+                const li = document.createElement("li");
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "삭제";
+                deleteButton.className = "deleteButton";
+                deleteButton.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteTodo(todo.text, li);
+                };
+
+                li.appendChild(deleteButton);
+
+                const todoSpan = document.createElement("span");
+                todoSpan.textContent = todo.text;
+                if (todo.completed) {
+                    todoSpan.style.textDecoration = 'line-through';
+                }
+                todoSpan.onclick = () => toggleTodoCompletion(todo.text, todoSpan);
+                li.appendChild(todoSpan);
+                todoList.appendChild(li);
+            });
+        });
+
+        async function toggleTodoCompletion(todoText, spanElement) {
+            try {
+                const response = await fetch('/todo', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ todo: todoText }),
+                });
+                const data = await response.json();
+                if (data.success) {
+                    spanElement.style.textDecoration = spanElement.style.textDecoration === 'line-through' ? '' : 'line-through';
+                } else {
+                    alert("Todo 항목을 완료 처리하는 데 문제가 발생했습니다.");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function deleteTodo(todoText, liElement) {
+            try {
+                const response = await fetch('/todo', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ todo: todoText }),
+                });
+                const data = await response.json();
+                if (data.success) {
+                    liElement.remove();
+                } else {
+                    alert("Todo 항목을 삭제하는 데 문제가 발생했습니다.");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
